@@ -48,7 +48,6 @@ bool check_if_end(int move, Board& board) {
         cout << "FINISH!\n";
         return true;
     } else {
-        cout << "I'm here!\n";
         return false;
     }
 }
