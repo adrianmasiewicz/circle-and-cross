@@ -12,8 +12,10 @@ public:
     bool check_if_win() const;
     bool check_if_win_abc(int a, int b, int c) const;
     bool check_if_empty(int value) const;
-    void insert_X(int value);
     void insert_O(int value);
+    void insert_X(int value);
+    void computer_insert_O();
+    void computer_insert_X();
     void show() const;
 };
 

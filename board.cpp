@@ -1,4 +1,7 @@
 #include "board.h"
+#include "thought.h"
+#include <cstdlib>
+#include <ctime>
 #include <iostream>
 
 Board::Board() {
@@ -43,12 +46,32 @@ bool Board::check_if_win() const {
     return false;
 }
 
+void Board::insert_O(int value) {
+    character[value - 1] = circe;
+}
+
 void Board::insert_X(int value) {
     character[value - 1] = cross;
 }
 
-void Board::insert_O(int value) {
-    character[value - 1] = circe;
+void Board::computer_insert_O() {
+    int random;
+    Thought(100);
+    srand(time(NULL));
+    do {
+        random = (std::rand() % 9);
+    } while (character[random] != empty);
+    character[random] = circe;
+}
+
+void Board::computer_insert_X() {
+    int random;
+    Thought(100);
+    srand(time(NULL));
+    do {
+        random = (std::rand() % 9);
+    } while (character[random] != empty);
+    character[random] = cross;
 }
 
 void Board::show() const {
@@ -65,12 +88,13 @@ void Board::show() const {
 
         if (character[i] == empty) {
             cout << " · ";
+            // cout << " "<<i+1<<" ";
         } else if (character[i] == circe) {
             cout << " O ";
         } else if (character[i] == cross) {
             cout << " X ";
         } else {
-            cout << "ERROR 001";
+            cout << "ERROR";
         }
 
         if (i % 3 == 2) {
