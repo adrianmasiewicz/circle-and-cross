@@ -31,11 +31,11 @@ bool Board::check_if_win() const {
         return true;
     if (check_if_win_abc(0, 3, 6))
         return true;
-    if (check_if_win_abc(1, 4, 5))
+    if (check_if_win_abc(1, 4, 7))
         return true;
     if (check_if_win_abc(2, 5, 8))
         return true;
-    if (check_if_win_abc(0, 4, 5))
+    if (check_if_win_abc(0, 4, 8))
         return true;
     if (check_if_win_abc(2, 4, 6))
         return true;
