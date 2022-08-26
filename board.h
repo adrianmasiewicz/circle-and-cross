@@ -1,5 +1,5 @@
-#pragma Once
-
+#ifndef BOARD_H_
+#define BOARD_H_
 class Board {
 private:
     enum symbol { circe,
@@ -16,3 +16,5 @@ public:
     void insert_O(int value);
     void show() const;
 };
+
+#endif

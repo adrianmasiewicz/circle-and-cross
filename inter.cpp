@@ -1,26 +1,8 @@
-#include <iostream>
-#include "board.h"
 #include "inter.h"
+#include <iostream>
 using namespace std;
 
-void insertCharacter(int move, Board& b);
-bool check_if_end(int move, Board& b);
-
-int main() {
-    system("clear");
-    Board board;
-    Inter inter;
-
-    for (int i = 0; !(check_if_end(i, board)); i++) {
-        board.show();
-        inter.insertCharacter(i,board);
-        //insertCharacter(i, board);
-        system("clear"); // Windows: system("pause")
-    }
-    board.show();
-}
-
-void insertCharacter(int move, Board& board) {
+void Inter::insertCharacter(int move, Board& board){
     int choice;
 
     bool loop;
@@ -40,7 +22,7 @@ void insertCharacter(int move, Board& board) {
         board.insert_O(choice);
 }
 
-bool check_if_end(int move, Board& board) {
+bool Inter::check_if_end(int move, Board& board){
     if (!(move < 9)) {
         cout << "DRAW!\n";
         return true;
@@ -53,3 +35,5 @@ bool check_if_end(int move, Board& board) {
         return false;
     }
 }
+
+
