@@ -51,7 +51,8 @@ void Inter::show_start_map() {
 
 void Inter::insertCharacter(int nr_move, Board& board) {
     int choice;
-    if (nr_move % 2 == firstMove) {
+    // if (nr_move % 2 == firstMove)
+    {
         bool loop;
         do {
             loop = false;
@@ -69,28 +70,28 @@ void Inter::insertCharacter(int nr_move, Board& board) {
         cout << "computer thinking...\n";
         // board.computer_insert_O();
     } else {
-        // board.insert_X(choice);
+        board.insert_X(choice);
         cout << "computer thinking...\n";
-        board.computer_insert_X();
+        // board.computer_insert_X();
     }
 }
 
 bool Inter::check_if_end(int nr_move, Board& board) {
-    if (!(nr_move < 9)) {
+    if (board.check_if_win()) {
+        cout << "FINISH for : ";
+        if (nr_move % 2 != firstSymbol) {
+            cout << "Circle: O !\n";
+        } else
+            cout << "Cross: X !\n";
+        return true;
+    }
+    
+    if (nr_move >= 9) {
         cout << "DRAW!\n";
         return true;
     }
 
-    nr_move--;
-    if (board.check_if_win()) {
-        cout << "FINISH for : ";
-        if (nr_move % 2 == firstSymbol) {
-            cout << "O !\n";
-        } else
-            cout << "X !\n";
+    return false;
 
-        return true;
-    } else {
-        return false;
-    }
+    
 }

@@ -66,7 +66,7 @@ void Board::computer_insert_O() {
 
 void Board::computer_insert_X() {
     int random;
-    Thought(100);
+    Thought(50);
     srand(time(NULL));
     do {
         random = (std::rand() % 9);
