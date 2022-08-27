@@ -51,14 +51,14 @@ void Inter::show_start_map() {
 
 void Inter::insertCharacter(int nr_move, Board& board) {
     int choice;
-    // if (nr_move % 2 == firstMove)
+    if (nr_move % 2 == firstMove)
     {
         bool loop;
         do {
             loop = false;
             cout << "Enter the place where you want to insert a character: ";
             cin >> choice;
-            if (!board.check_if_empty(choice)) {
+            if (!board.check_if_empty(choice-1)) {
                 cout << "This place is already taken!";
                 loop = true;
             }
@@ -70,9 +70,9 @@ void Inter::insertCharacter(int nr_move, Board& board) {
         cout << "computer thinking...\n";
         // board.computer_insert_O();
     } else {
-        board.insert_X(choice);
+        //board.insert_X(choice);
         cout << "computer thinking...\n";
-        // board.computer_insert_X();
+        board.computer_insert_X();
     }
 }
 

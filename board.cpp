@@ -1,8 +1,8 @@
 #include "board.h"
-#include "thought.h"
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+#include "thought.h"
 
 Board::Board() {
     for (int i = 0; i < 9; i++) {
@@ -11,7 +11,7 @@ Board::Board() {
 }
 
 bool Board::check_if_empty(int value) const {
-    if (character[value - 1] == empty)
+    if (character[value] == empty)
         return true;
     else
         return false;
@@ -56,7 +56,7 @@ void Board::insert_X(int value) {
 
 void Board::computer_insert_O() {
     int random;
-    Thought(100);
+    Thought(10);
     srand(time(NULL));
     do {
         random = (std::rand() % 9);
@@ -66,12 +66,106 @@ void Board::computer_insert_O() {
 
 void Board::computer_insert_X() {
     int random;
-    Thought(50);
+    Thought(10);
     srand(time(NULL));
-    do {
-        random = (std::rand() % 9);
-    } while (character[random] != empty);
-    character[random] = cross;
+
+    computer_symbol = cross;
+    if (computer_check_threat(computer_symbol)) {
+        // computer check the threat and insert a character
+    } else {
+        do {
+            random = (std::rand() % 9);
+        } while (character[random] != empty);
+        character[random] = cross;
+    }
+}
+
+bool Board::computer_check_threat(symbol computer_symbol) {
+    symbol man_symbol;
+    if (computer_symbol == circe)
+        man_symbol = cross;
+    else
+        man_symbol = circe;
+
+    for (int i = 0; i < 9; i++) {
+        if (check_if_empty(i) &&
+            computer_check_threat_2(computer_symbol, i)) {
+            character[i] = cross;
+            return true;
+        }
+    }
+
+    for (int i = 0; i < 9; i++) {
+        if (check_if_empty(i) &&
+            computer_check_threat_2(man_symbol, i)) {
+            character[i] = cross;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool Board::computer_check_threat_2(symbol s, int v) const {
+    /*
+     0 1 2
+     3 4 5
+     6 7 8
+     */
+    if (v == 0) {
+        if ((character[1] == s && character[1] == character[2]) ||
+            (character[3] == s && character[3] == character[6]) ||
+            (character[4] == s && character[4] == character[8])) {
+            return true;
+        }
+    } else if (v == 1) {
+        if ((character[0] == s && character[0] == character[2]) ||
+            (character[4] == s && character[4] == character[7])) {
+            return true;
+        }
+    } else if (v == 2) {
+        if ((character[0] == s && character[0] == character[1]) ||
+            (character[4] == s && character[4] == character[6]) ||
+            (character[5] == s && character[5] == character[8])) {
+            return true;
+        }
+    } else if (v == 3) {
+        if ((character[0] == s && character[0] == character[6]) ||
+            (character[4] == s && character[4] == character[5])) {
+            return true;
+        }
+    } else if (v == 4) {
+        if ((character[3] == s && character[3] == character[5]) ||
+            (character[1] == s && character[1] == character[7]) ||
+            (character[1] == s && character[0] == character[8]) ||
+            (character[1] == s && character[6] == character[2])) {
+            return true;
+        }
+    } else if (v == 5) {
+        if ((character[2] == s && character[2] == character[8]) ||
+            (character[3] == s && character[3] == character[4])) {
+            return true;
+        }
+    } else if (v == 6) {
+        if ((character[0] == s && character[0] == character[3]) ||
+            (character[4] == s && character[4] == character[2]) ||
+            (character[7] == s && character[7] == character[8])) {
+            return true;
+        }
+    } else if (v == 7) {
+        if ((character[1] == s && character[1] == character[4]) ||
+            (character[6] == s && character[6] == character[8])) {
+            return true;
+        }
+    } else if (v == 8) {
+        if ((character[0] == s && character[0] == character[4]) ||
+            (character[2] == s && character[2] == character[5]) ||
+            (character[6] == s && character[6] == character[7])) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 void Board::show() const {
