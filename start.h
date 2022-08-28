@@ -109,10 +109,10 @@ void yourSign(Inter& inter) {
     }
 
     if (inter.getFirstMove() == inter.computer) {
-        if (choice == 1) {
+        if (choice == '1') {
             cout << "You are circle!\n";
             inter.setFirstSymbol(inter.cross);
-        } else if (choice == 2) {
+        } else if (choice == '2') {
             cout << "You are cross!\n";
             inter.setFirstSymbol(inter.circle);
         } else {

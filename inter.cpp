@@ -7,16 +7,35 @@ void Inter::showPoints() const {
     cout << "Cross:" << getCrossPoints() << "\n";
 }
 
-bool Inter::stillPlay() const{
+bool Inter::stillPlay() const {
     char c;
+
+    if ((getMaxPoints() <= getCirclePoints()) ||
+        (getMaxPoints() <= getCrossPoints())) {
+        return false;
+    }
+
     cout << "Are we still play? [Y/n]: ";
     cin >> c;
-    if (c == 'Y') {
-        system ("clear");
+    if (c == 'Y' || c == 'y') {
+        system("clear");
         return true;
-    }
-    else 
+    } else
         return false;
+}
+
+void Inter::changeFirst() {
+    if (firstMove == man) {
+        firstMove = computer;
+    } else {
+        firstMove = man;
+    }
+
+    if (firstSymbol == circle) {
+        firstSymbol = cross;
+    } else {
+        firstSymbol = circle;
+    }
 }
 
 void Inter::insertCharacter(int nr_move, Board& board) {
