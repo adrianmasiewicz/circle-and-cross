@@ -47,29 +47,35 @@ bool Board::check_if_win() const {
 }
 
 void Board::insert_O(int value) {
-    character[value - 1] = circe;
+    character[value] = circe;
 }
 
 void Board::insert_X(int value) {
-    character[value - 1] = cross;
+    character[value] = cross;
 }
 
 void Board::computer_insert_O() {
     int random;
     Thought(10);
     srand(time(NULL));
-    do {
-        random = (std::rand() % 9);
-    } while (character[random] != empty);
-    character[random] = circe;
+    computer_symbol = circe;
+
+    if (computer_check_threat(computer_symbol)) {
+        // computer check the threat and insert a character
+    } else {
+        do {
+            random = (std::rand() % 9);
+        } while (character[random] != empty);
+        character[random] = circe;
+    }
 }
 
 void Board::computer_insert_X() {
     int random;
     Thought(10);
     srand(time(NULL));
-
     computer_symbol = cross;
+
     if (computer_check_threat(computer_symbol)) {
         // computer check the threat and insert a character
     } else {
@@ -90,7 +96,7 @@ bool Board::computer_check_threat(symbol computer_symbol) {
     for (int i = 0; i < 9; i++) {
         if (check_if_empty(i) &&
             computer_check_threat_2(computer_symbol, i)) {
-            character[i] = cross;
+            character[i] = computer_symbol;
             return true;
         }
     }
@@ -98,7 +104,7 @@ bool Board::computer_check_threat(symbol computer_symbol) {
     for (int i = 0; i < 9; i++) {
         if (check_if_empty(i) &&
             computer_check_threat_2(man_symbol, i)) {
-            character[i] = cross;
+            character[i] = computer_symbol;
             return true;
         }
     }
@@ -137,8 +143,8 @@ bool Board::computer_check_threat_2(symbol s, int v) const {
     } else if (v == 4) {
         if ((character[3] == s && character[3] == character[5]) ||
             (character[1] == s && character[1] == character[7]) ||
-            (character[1] == s && character[0] == character[8]) ||
-            (character[1] == s && character[6] == character[2])) {
+            (character[0] == s && character[0] == character[8]) ||
+            (character[6] == s && character[6] == character[2])) {
             return true;
         }
     } else if (v == 5) {
