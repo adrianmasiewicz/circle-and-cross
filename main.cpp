@@ -9,6 +9,7 @@ int main() {
     system("clear");
     StartSetting(inter);
 
+    inter.saveChanges();
     do
     {        
         Board board;

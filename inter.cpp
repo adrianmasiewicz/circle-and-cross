@@ -1,6 +1,51 @@
 #include "inter.h"
+#include <fstream>
 #include <iostream>
+#include <string>
 using namespace std;
+
+Inter::Inter() {
+    fstream file;
+    file.open("setting.txt", ios::in);
+
+    string line;
+    int numberLine = 1;
+
+    
+    while (getline(file, line)) {
+        
+        switch (numberLine)
+        {
+        case 1:
+            firstMove = who_move(stoi(line));
+            break;
+        case 2:
+            firstSymbol = symbol(stoi(line));
+            break;
+        case 3:
+            mapVersion = map(stoi(line));
+            break;
+        case 4:
+            maxPoints = stoi(line);
+            break;
+        default:
+            cout << "Invalid data\n";
+            break;
+        }
+        numberLine++;
+    }
+}
+
+void Inter::saveChanges() {
+    fstream file;
+
+    file.open("setting.txt", ios::out);
+    file << firstMove << endl;
+    file << firstSymbol << endl;
+    file << mapVersion << endl;
+    file << maxPoints << endl;
+    file.close();
+}
 
 void Inter::showPoints() const {
     cout << "Circle: " << getCirclePoints() << " | ";

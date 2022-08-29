@@ -29,7 +29,9 @@ private:
     who_move firstMove = man;
 
 public:
+    Inter();
     void changeFirst();
+    void saveChanges();
     bool stillPlay() const;
     void showPoints() const;
     void insertCharacter(int nr_move, Board& b);

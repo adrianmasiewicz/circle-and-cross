@@ -31,6 +31,9 @@ void StartSetting(Inter& inter) {
 
         cout << "Save changes? [Y/n]: ";
         cin >> saveChanges;
+        if (saveChanges == 'Y' || saveChanges == 'y') {
+            inter.saveChanges();
+        }
     }
     system("clear");
 }
